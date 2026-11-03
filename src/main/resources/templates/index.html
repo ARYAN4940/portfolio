@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title th:text="${name} + ' | ' + ${title}">
+        My Portfolio
+    </title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" />
+    <link rel="stylesheet" th:href="@{/css/hero.css}" />
+    <link rel="stylesheet" th:href="@{/css/about.css}" />
+    <link rel="stylesheet" th:href="@{/css/skills.css}" />
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div th:replace="~{fragments/layout :: navbar}"></div>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="home">
+
+        <div class="container hero-inner">
+
+            <div class="hero-text">
+
+                <p class="hero-greeting">Hi, I'm</p>
+
+                <h1 class="hero-name" th:text="${name}">
+                    Your Name
+                </h1>
+
+                <h2 class="hero-title" th:text="${title}">
+                    Your Role
+                </h2>
+
+                <p class="hero-tagline" th:text="${tagline}">
+                    Your one line intro.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="#projects" class="btn btn-primary">
+                        See my projects
+                    </a>
+
+                    <a href="#contact" class="btn btn-outline">
+                        Contact me
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="hero-photo">
+
+                <img
+                    th:src="@{/images/profile.jpg}"
+                    th:alt="${name}"
+                    alt="Profile photo"
+                />
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ===== ABOUT SECTION ===== -->
+    <section class="section about" id="about">
+
+        <div class="container about-inner">
+
+            <div class="about-main">
+
+                <h2 class="section-title">
+                    About me
+                </h2>
+
+                <p class="about-text" th:text="${about}">
+                    A few lines about me.
+                </p>
+
+                <a
+                    class="btn btn-primary"
+                    th:href="${resumeUrl}"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    Download resume
+                </a>
+
+            </div>
+
+            <ul class="about-facts">
+
+                <li>
+                    <span class="fact-label">Location</span>
+                    <span th:text="${location}">City, Country</span>
+                </li>
+
+                <li>
+                    <span class="fact-label">Email</span>
+                    <a
+                        th:href="'mailto:' + ${email}"
+                        th:text="${email}"
+                    >
+                        you@example.com
+                    </a>
+                </li>
+
+                <li>
+                    <span class="fact-label">GitHub</span>
+                    <a
+                        th:href="${github}"
+                        th:text="${#strings.replace(github, 'https://', '')}"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        github.com/you
+                    </a>
+                </li>
+
+                <li>
+                    <span class="fact-label">LinkedIn</span>
+                    <a
+                        th:href="${linkedin}"
+                        th:text="${#strings.replace(linkedin, 'https://', '')}"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        linkedin.com/in/you
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </section>
+
+    <!-- ===== SKILLS SECTION ===== -->
+    <section class="section skills" id="skills">
+
+        <div class="container">
+
+            <h2 class="section-title">
+                Skills
+            </h2>
+
+            <p class="section-subtitle">
+                The languages, frameworks and tools I use to build projects.
+            </p>
+
+            <div class="skills-grid">
+
+                <!-- Outer Loop: One box per category -->
+                <div
+                    class="skill-group"
+                    th:each="group : ${skillsByCategory}"
+                >
+
+                    <h3 th:text="${group.key}">
+                        Category
+                    </h3>
+
+                    <div class="skill-list">
+
+                        <!-- Inner Loop: One chip per skill -->
+                        <span
+                            class="skill-chip"
+                            th:each="skill : ${group.value}"
+                            th:text="${skill.name}"
+                        >
+                            Skill
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- JavaScript -->
+    <script th:src="@{/js/menu.js}"></script>
+
+</body>
+</html>
