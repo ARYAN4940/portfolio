@@ -8,3 +8,4 @@ RUN mvn clean package -DskipTests -B           build the jar
 FROM eclipse-temurin:21-jre                    now a SMALLER machine, Java only
 COPY --from=build /app/target/*.jar app.jar    bring just the finished jar
 ENTRYPOINT ["java", "-jar", "app.jar"]         run it
+EXPOSE 8080                                     tell docker to expose port 8080
